@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IDR ↔ USD calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <h1>IDR ↔ USD calculator</h1>
+        <p class="tagline">Basic math plus both-currency equivalents for Bali budgets.</p>
+      </header>
+
+      <section class="card" aria-labelledby="rate-heading">
+        <h2 id="rate-heading">Exchange rate</h2>
+        <div class="rate-row">
+          <label for="rate">1 USD =</label>
+          <input
+            id="rate"
+            type="number"
+            inputmode="decimal"
+            min="1"
+            step="1"
+            value="16500"
+            aria-describedby="rate-hint"
+          />
+          <span>IDR</span>
+          <button type="button" class="secondary" id="refresh-rate">Refresh live</button>
+        </div>
+        <p id="rate-hint" class="rate-hint">Dual amounts use this rate. Live rate uses ECB data (Frankfurter API).</p>
+      </section>
+
+      <div class="layout-split">
+        <div class="layout-main">
+          <section class="card calc-card" aria-labelledby="calc-heading">
+            <h2 id="calc-heading">Calculator</h2>
+            <p class="interpret-hint">
+              Numbers are plain math.<span class="break"></span>
+              <strong>Value in</strong>
+              <select id="calc-currency" class="currency-select currency-inline" aria-label="Interpret amount as currency">
+                <option value="USD">USD</option>
+                <option value="IDR">IDR</option>
+              </select>
+              — shown below as both USD and IDR.
+            </p>
+
+            <div class="display-wrap" aria-live="polite">
+              <div class="display-main" id="display-main">0</div>
+              <div class="display-dual">
+                <p class="display-line" id="line-usd">$0.00</p>
+                <p class="display-line muted" id="line-idr">Rp 0</p>
+              </div>
+            </div>
+
+            <div class="tool-row tool-row-split">
+              <button type="button" class="secondary wide" id="btn-convert">Convert amount</button>
+              <button type="button" class="btn-rt-add wide" id="btn-add-rt">Add to running total</button>
+            </div>
+
+            <div class="keypad" role="group" aria-label="Keypad">
+              <button type="button" class="key key-fn" id="btn-ac" data-act="ac">AC</button>
+              <button type="button" class="key key-fn" id="btn-bs" data-act="backspace">⌫</button>
+              <button type="button" class="key key-op" data-act="div">÷</button>
+              <button type="button" class="key key-op" data-act="mul">×</button>
+
+              <button type="button" class="key" data-digit="7">7</button>
+              <button type="button" class="key" data-digit="8">8</button>
+              <button type="button" class="key" data-digit="9">9</button>
+              <button type="button" class="key key-op" data-act="sub">−</button>
+
+              <button type="button" class="key" data-digit="4">4</button>
+              <button type="button" class="key" data-digit="5">5</button>
+              <button type="button" class="key" data-digit="6">6</button>
+              <button type="button" class="key key-op" data-act="add">+</button>
+
+              <button type="button" class="key" data-digit="1">1</button>
+              <button type="button" class="key" data-digit="2">2</button>
+              <button type="button" class="key" data-digit="3">3</button>
+              <button type="button" class="key key-equals" data-act="eq">=</button>
+
+              <button type="button" class="key key-zero" data-digit="0">0</button>
+              <button type="button" class="key" data-act="dot">.</button>
+            </div>
+
+            <div id="error" class="error-toast" role="status"></div>
+          </section>
+        </div>
+
+        <aside class="layout-side" aria-labelledby="rt-heading">
+          <section class="card rt-card">
+            <h2 id="rt-heading">Running total</h2>
+            <div class="rt-sum" aria-live="polite">
+              <p class="rt-sum-label">Sum</p>
+              <p class="rt-sum-primary" id="rt-sum-usd">$0.00</p>
+              <p class="rt-sum-secondary" id="rt-sum-idr">Rp 0</p>
+            </div>
+            <p class="rt-hint">
+              Each line is added only when you click <strong>Add to running total</strong>. It uses the number on the
+              calculator and the <strong>Value in</strong> currency.
+            </p>
+            <ul class="rt-list" id="rt-list"></ul>
+            <button type="button" class="secondary wide rt-clear" id="rt-clear">Clear running total</button>
+          </section>
+        </aside>
+      </div>
+
+      <p class="footer-note">
+        Keyboard: number row &amp; numpad, <kbd>.</kbd> or <kbd>,</kbd> for decimals,
+        <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd>, <kbd>Enter</kbd> or <kbd>=</kbd> for result,
+        <kbd>Esc</kbd> clears all, <kbd>Backspace</kbd> deletes a digit. Rate / currency fields use normal typing.
+      </p>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
