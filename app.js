@@ -470,6 +470,11 @@ function onCalcKeydown(e) {
       e.preventDefault();
       allClear();
       return;
+    case "k":
+    case "K":
+      e.preventDefault();
+      tripleZero();
+      return;
     case "Backspace":
       e.preventDefault();
       backspace();
