@@ -283,6 +283,13 @@ function dot() {
   render();
 }
 
+function tripleZero() {
+  if (displayDigits === "0" || displayDigits === "-0" || displayDigits === "") return;
+  digit("0");
+  digit("0");
+  digit("0");
+}
+
 function backspace() {
   if (replaceEntry) return;
   displayDigits = displayDigits.slice(0, -1);
@@ -552,6 +559,9 @@ els.keypad.addEventListener("click", (e) => {
       break;
     case "backspace":
       backspace();
+      break;
+    case "triple-zero":
+      tripleZero();
       break;
     case "ac":
       allClear();

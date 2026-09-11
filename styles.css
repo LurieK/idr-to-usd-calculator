@@ -428,10 +428,6 @@ button.secondary.wide {
   filter: brightness(0.96);
 }
 
-.key-zero {
-  grid-column: span 2;
-}
-
 .footer-note {
   margin: 1.25rem 0 0;
   font-size: 0.75rem;
